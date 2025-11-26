@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+var argsRegex = regexp.MustCompile(`\s*([^=]+)="([^"]+)"`)
+
 // Shortcode defines a shortcode engine
 type Shortcode struct {
 	bracketOpening string
@@ -43,10 +45,8 @@ func NewShortcode(opts ...ShortcodeOption) (*Shortcode, error) {
 }
 
 func (sh Shortcode) RenderWithRequest(req *http.Request, str string, shortcode string, fn func(*http.Request, string, map[string]string) string) string {
-	escapedBracketOpening := strings.ReplaceAll(sh.bracketOpening, "[", "\\[")
-	escapedBracketOpening = strings.ReplaceAll(escapedBracketOpening, "(", "\\(")
-	escapedBracketClosing := strings.ReplaceAll(sh.bracketClosing, "]", "\\]")
-	escapedBracketClosing = strings.ReplaceAll(escapedBracketClosing, ")", "\\)")
+	escapedBracketOpening := regexp.QuoteMeta(sh.bracketOpening)
+	escapedBracketClosing := regexp.QuoteMeta(sh.bracketClosing)
 	attr := `(\s+[^` + escapedBracketClosing + `]+)?`
 	start := escapedBracketOpening + shortcode + attr + escapedBracketClosing
 	end := escapedBracketOpening + `/` + shortcode + escapedBracketClosing
@@ -71,10 +71,8 @@ func (sh Shortcode) RenderWithRequest(req *http.Request, str string, shortcode s
 }
 
 func (sh Shortcode) Render(str string, shortcode string, fn func(string, map[string]string) string) string {
-	escapedBracketOpening := strings.ReplaceAll(sh.bracketOpening, "[", "\\[")
-	escapedBracketOpening = strings.ReplaceAll(escapedBracketOpening, "(", "\\(")
-	escapedBracketClosing := strings.ReplaceAll(sh.bracketClosing, "]", "\\]")
-	escapedBracketClosing = strings.ReplaceAll(escapedBracketClosing, ")", "\\)")
+	escapedBracketOpening := regexp.QuoteMeta(sh.bracketOpening)
+	escapedBracketClosing := regexp.QuoteMeta(sh.bracketClosing)
 	attr := `(\s+[^` + escapedBracketClosing + `]+)?`
 	start := escapedBracketOpening + shortcode + attr + escapedBracketClosing
 	end := escapedBracketOpening + `/` + shortcode + escapedBracketClosing
@@ -97,9 +95,9 @@ func (sh Shortcode) Render(str string, shortcode string, fn func(string, map[str
 }
 
 func attrsToArgs(attrs string) map[string]string {
-	args := map[string]string{}
-	argsRegex := regexp.MustCompile(`\s*([^=]+)="([^"]+)"`)
-	for _, argMatch := range argsRegex.FindAllStringSubmatch(attrs, -1) {
+	matches := argsRegex.FindAllStringSubmatch(attrs, -1)
+	args := make(map[string]string, len(matches))
+	for _, argMatch := range matches {
 		args[argMatch[1]] = argMatch[2]
 	}
 	return args
