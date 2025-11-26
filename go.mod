@@ -1,3 +1,3 @@
-module github.com/gouniverse/shortcode
+module github.com/dracory/shortcode
 
-go 1.18
+go 1.25

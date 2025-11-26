@@ -1,8 +1,8 @@
-# Shortcode <a href="https://gitpod.io/#https://github.com/gouniverse/shortcode" style="float:right:"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" loading="lazy"></a>
+# Shortcode <a href="https://gitpod.io/#https://github.com/dracory/shortcode" style="float:right:"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" loading="lazy"></a>
 
-[![Tests Status](https://github.com/gouniverse/shortcode/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/gouniverse/shortcode/actions/workflows/tests.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/gouniverse/shortcode)](https://goreportcard.com/report/github.com/gouniverse/shortcode)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/gouniverse/shortcode)](https://pkg.go.dev/github.com/gouniverse/shortcode)
+[![Tests Status](https://github.com/dracory/shortcode/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/dracory/shortcode/actions/workflows/tests.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dracory/shortcode)](https://goreportcard.com/report/github.com/dracory/shortcode)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/dracory/shortcode)](https://pkg.go.dev/github.com/dracory/shortcode)
 
 ## Introduction
 
@@ -20,7 +20,7 @@ Shortcodes as seen in popular platforms like Wordpress, allow you to effortlessl
 
 ## Installation
 ```
-go get -u github.com/gouniverse/shortcode
+go get -u github.com/dracory/shortcode
 ```
 
 ## Example
